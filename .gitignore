@@ -25,3 +25,6 @@ hs_err_pid*
 /P1/redSocialP1S1/dist/
 /P1/redSocialP1S1/build/
 /P1/redSocialP1S1/nbproject/private/
+
+#vpp backup
+*.vpp.bak*
