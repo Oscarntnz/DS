@@ -69,7 +69,7 @@ public class monitorSeguidores extends javax.swing.JFrame implements Observer {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(java.awt.Color.blue);
-        setType(java.awt.Window.Type.POPUP);
+        setName("monitorPush"); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Druk Wide Bold", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 51));
@@ -163,11 +163,9 @@ public class monitorSeguidores extends javax.swing.JFrame implements Observer {
         numSeguidores = usuarioObservado.getSeguidores().size();
         jLabel4.setText(String.valueOf(numSeguidores));
         jLabel6.setText(String.valueOf(usuarioObservado.getNombre()));
-        
+        System.out.println(usuarioObservado.getSeguidores().get(usuarioObservado.getSeguidores().size()-1).getNombre() +
+        " sigue a " + usuarioObservado.getNombre());
     }
-
-
-
 }
 
 

@@ -17,14 +17,13 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-public class monitorSeguidoresLetra extends javax.swing.JFrame implements Observer, Runnable{
+public class monitorSeguidoresLetra extends javax.swing.JFrame{
 
     public int numSeguidores;
     public Usuario usuarioObservado;
     public int numSeguidoresLetra;
     String letra;
     boolean boton = false;
-    public Thread hebra;
    
     public monitorSeguidoresLetra(Usuario userOb) {
         initComponents();
@@ -38,10 +37,6 @@ public class monitorSeguidoresLetra extends javax.swing.JFrame implements Observ
             numSeguidoresLetra = calcularNumSeguidoresLetra(usuarioObservado, letra);
             jLabel1.setText(String.valueOf(numSeguidoresLetra));
         }
-        
-        
-        
-        hebra = new Thread((Runnable) this);
        
         Dimension windowSize = getSize();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -84,6 +79,7 @@ public class monitorSeguidoresLetra extends javax.swing.JFrame implements Observ
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("monitorPull"); // NOI18N
 
         jButton3.setBackground(new java.awt.Color(0, 51, 51));
         jButton3.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
@@ -195,28 +191,5 @@ public class monitorSeguidoresLetra extends javax.swing.JFrame implements Observ
             jLabel1.setText(String.valueOf(numSeguidoresLetra));
 
     }
-    
-    @Override
-    public void update(Observable usuario, Object arg) {
-        letra = jTextField1.getText();
-     
-        numSeguidores = usuarioObservado.getSeguidores().size();
-        numSeguidoresLetra = calcularNumSeguidoresLetra(usuarioObservado, letra);
-        
-        if(boton)
-            jLabel1.setText(String.valueOf(numSeguidoresLetra));
-        
-    }
-    
-    
-    public void run(){ 
-        while(true){
-            
-            actualiza();
-        }
-    }
-
-
-
 
 }

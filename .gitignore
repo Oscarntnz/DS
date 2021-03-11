@@ -21,3 +21,7 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/redSocialP1S1/dist/
+/P1/redSocialP1S1/dist/
+/P1/redSocialP1S1/build/
+/P1/redSocialP1S1/nbproject/private/

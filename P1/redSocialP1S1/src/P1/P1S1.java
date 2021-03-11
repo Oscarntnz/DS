@@ -54,39 +54,28 @@ public class P1S1 extends Thread{
     
     @Override
     public void run(){
-        
-        // Monitor
-        if(getId() == 0){
-            while(true){
-                break;
-            }
-        }
-        else{
-            while(true){
-                try{
-                    sleep(random.nextInt(5000));
-                    synchronized("Creacion usuario"){
-                        String nombre = getNombreNoUsado();
+        while(true){
+            try{
+                sleep(random.nextInt(5000));
+                synchronized("Creacion usuario"){
+                    String nombre = getNombreNoUsado();
 
-                        if(getNombreNoUsado().isEmpty())
-                            break;
+                    if(getNombreNoUsado().isEmpty())
+                        break;
 
-                        Usuario usuario = new Usuario(nombre);
+                    Usuario usuario = new Usuario(nombre);
 
-                        usuario.seguir(usuarioMonitorizado);
-                    }
-                } catch (Exception e){
-                    System.err.println("La hebra " + getId() + " ha tenido un problema.");
-                    System.err.println(e.getMessage());
+                    usuario.seguir(usuarioMonitorizado);
                 }
+            } catch (Exception e){
+                System.err.println("La hebra " + getId() + " ha tenido un problema.");
+                System.err.println(e.getMessage());
             }
         }
 
     }
     
     public static void main(String[] args){
-        
-        
         nombresEnUso = new ArrayList<>();
         random = new Random();
         String nombre = nombres[random.nextInt(nombres.length)];
@@ -99,14 +88,9 @@ public class P1S1 extends Thread{
         
         P1S1 cliente = new P1S1(usuarioMonitorizado);
       
-      
-        cliente.start();
-        
-       
-        graficaPull.setVisible(true);
-        graficaPull.hebra.start();
-
-        
+        graficaPull.setVisible(true);       
         grafica.setVisible(true);
+        
+        cliente.start();
     }
 }
