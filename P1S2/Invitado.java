@@ -2,5 +2,13 @@ package P1S2;
 
 public class Invitado extends Usuario {
     
-    public Invitado(String nombreUsuario, String password){}
+    /**
+     * Constructor por defecto
+     *
+     * @param nombreUsuario 
+     */
+    public Invitado(String nombreUsuario) {
+        super(nombreUsuario);
+        
+    }
 }
