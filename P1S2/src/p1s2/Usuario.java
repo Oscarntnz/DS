@@ -1,6 +1,9 @@
 package p1s2;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class Usuario{
 

@@ -1,5 +1,9 @@
 package p1s2;
 
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Registrado extends Usuario {
     
     String password;
@@ -19,5 +23,12 @@ public class Registrado extends Usuario {
             throw new UnsupportedOperationException();
     }
     
+    public void publicaAleatorio(){
+        synchronized(this){
+            Post p = Gestor.getInstance().crearPost(Gestor.getInstance().getTextoAleatorio(), this, Tipo.Registrado);
 
+            System.out.println(p.getTexto());
+            System.out.println("\t-" + getNombre());
+        }
+    }
 }

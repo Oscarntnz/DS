@@ -10,6 +10,16 @@ import java.util.ArrayList;
 import java.lang.reflect.Array;
 
 public class P1S2 {
+    
+    static boolean running = true;
+    
+    static boolean isRunning(){
+        return running;
+    }
+    
+    static void terminar(){
+        running = false;
+    }
 
     private ArrayList<String> usuariosNombre = new ArrayList();
     private ArrayList<Usuario> usuarios = new ArrayList();
@@ -67,20 +77,32 @@ public class P1S2 {
     
     public static void main(String[] args) {
     	int selection;
-    	boolean running = true;
         P1S2 P = new P1S2();
     	Scanner scan = new Scanner(System.in);
     	FactoriaRegistrados fRegistrados = FactoriaRegistrados.getInstance(); 
     	FactoriaInvitados fInvitados = FactoriaInvitados.getInstance();
+        ComportamientoRegistrados comReg = new ComportamientoRegistrados();
+        ComportamientoInvitados comInv = new ComportamientoInvitados();
+        Thread r1 = new Thread(comReg), 
+                r2 = new Thread(comReg), 
+                r3 = new Thread(comReg), 
+                i1 = new Thread(comInv), 
+                i2 = new Thread(comInv);
 
         
         System.out.println("¡Bienvenido a Hello World!");
+        
+        r1.start();
+        r2.start();
+        r3.start();
+        i1.start();
+        i2.start();
+        
 	while (running) {
-            
 
             System.out.println("\n");
             System.out.println( "\n"+"Menú:\n" + "1 - Registro de usuario\n" + 
-                                "2 - Creación de post\n" + "0 - Salir");
+                                "2 - Creación de post\n" + "0 - Salir\n");
             System.out.println("Elija una de las opciones:");
             selection = scan.nextInt();
             
@@ -155,7 +177,7 @@ public class P1S2 {
 
                                 String nombreInvitado = P.crearNombreInvitado();
                                 Usuario invi = fInvitados.crearUsuario(nombreInvitado, "");
-
+                                
                                 System.out.println("Escriba el post a publicar: ");
                                 String texto = scan.next();
 
@@ -169,12 +191,15 @@ public class P1S2 {
                         
 
                 break;
-
+                
                 case 0:
-                    running = false;
+                    terminar();
                     System.out.println("¡Hasta luego!");
                 break;
 
+                default:
+                    System.out.println("Opción no válida");
+                break;
             }
 	}
     }

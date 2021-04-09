@@ -64,4 +64,8 @@ public class Gestor {
             return null;
     }
     
+    public String getTextoAleatorio(){
+        return nombresComentariosAleatorios.getComentarioAleatorio();
+    }
+    
 }
