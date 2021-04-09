@@ -6,11 +6,16 @@ public abstract class Usuario {
 
 	private String nombreUsuario;
 
-	/**
-	 * 
-	 * @param aSeguir
-	 */
 	
+	/**
+     * Constructor por defecto
+     * 
+     * @param nombreUsuario
+     */
+    public Usuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
 
 	public String getNombre() {
             return nombreUsuario;

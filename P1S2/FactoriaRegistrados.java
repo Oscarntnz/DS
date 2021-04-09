@@ -12,24 +12,26 @@ public class FactoriaRegistrados extends FactoriaUsuariosPost {
         
         return INSTANCE;
     }
-    /**
-     * 
-     * @param nombreUsuario
-     * @param password
-     */
-    public Usuario crearUsuario(String nombreUsuario, String password) {
-            // TODO - implement FactoriaRegistrados.crearUsuario
-            throw new UnsupportedOperationException();
-    }
 
     /**
-     * 
-     * @param texto
-     * @param autor
-     */
-    public Post crearPost(String texto, Usuario autor) {
-            // TODO - implement FactoriaRegistrados.crearPost
-            throw new UnsupportedOperationException();
-    }
+	 * 
+	 * @param nombreUsuario
+	 * @param password
+	 */
+	public Usuario crearUsuario(String nombreUsuario, String password){
+		
+		return new Registrado(nombreUsuario,password);
+
+	}
+
+	/**
+	 * 
+	 * @param texto
+	 * @param autor
+	 */
+	public Post crearPost(String texto, Usuario autor){
+	
+		return new postRegistrado(texto, autor);
+	}
 
 }
