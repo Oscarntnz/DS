@@ -17,7 +17,7 @@ class FiltroEtiquetas extends Filtro {
           i++;
         }
 
-        if(!etiqueta.isEmpty){
+        if(etiqueta.isNotEmpty){
           etiquetas.add(etiqueta);
           etiqueta = "";
         }

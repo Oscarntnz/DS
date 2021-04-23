@@ -45,7 +45,7 @@ class _Home extends State<Home> {
     );
   }
 
-  Widget publicarPost() {
+  void publicarPost() {
     final controlPost = new TextEditingController();
 
     showDialog(

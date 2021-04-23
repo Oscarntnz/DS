@@ -121,7 +121,7 @@ class _Registro extends State<Registro> {
     return false;
   }
 
-  Widget alerta(String texto) {
+  void alerta(String texto) {
     showDialog(
       context: context,
       builder: (context) {

@@ -121,7 +121,7 @@ class _Login extends State<Login> {
     return false;
   }
 
-  Widget alerta(String texto) {
+  void alerta(String texto) {
     showDialog(
       context: context,
       builder: (context) {
