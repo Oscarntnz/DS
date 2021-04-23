@@ -1,33 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p_2/Registro.dart';
-import 'Constructor.dart';
-import 'Gestor.dart';
-import 'Post.dart';
+import 'package:p_2/controlador/Gestor.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'Registro.dart';
+import 'Login.dart';
 import 'Home.dart';
 
-Gestor g = Constructor().build();
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
+class Registro extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Hello wolrd!',
-      home: Login(),
-    );
-  }
+  _Registro createState() => _Registro();
 }
 
-class Login extends StatefulWidget {
-  @override
-  _Login createState() => _Login();
-}
-
-class _Login extends State<Login> {
+class _Registro extends State<Registro> {
   final _coloresFondo = [Color(0xFF047DD9), Color(0xFF001BC3)];
   final _estiloTitulo = GoogleFonts.raleway(fontSize: 50.0, color: Colors.white);
 
@@ -35,24 +18,24 @@ class _Login extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: _coloresFondo,
-                ),
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: _coloresFondo,
               ),
             ),
-            buildLogin(),
-          ],
+          ),
+          buildRegistro(),
+        ],
       ),
       resizeToAvoidBottomInset: false,
     );
   }
 
-  Widget buildLogin(){
+  Widget buildRegistro(){
     final controlUsuario = new TextEditingController();
     final controlPass = new TextEditingController();
 
@@ -67,7 +50,7 @@ class _Login extends State<Login> {
         child:Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Iniciar sesión', style: _estiloTitulo),
+            Text('Registro', style: _estiloTitulo),
             SizedBox(height: 10.0),
             TextFormField(
               style: TextStyle(color: Colors.white),
@@ -100,11 +83,11 @@ class _Login extends State<Login> {
             Container(
               child: ElevatedButton(
                 onPressed: () {
-                  if(gestionarLogin(controlUsuario.text, controlPass.text))
+                  if(registrar(controlUsuario.text, controlPass.text))
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Home()));
                 },
-                child: Text('Iniciar sesión'),
+                child: Text('Registrarse'),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
                   onPrimary: Colors.blueAccent,
@@ -113,10 +96,10 @@ class _Login extends State<Login> {
             ),
             SizedBox(height: 20.0),
             InkWell(
-              child: Text('¿No tienes cuenta?', style: TextStyle(color: Colors.white)),
+              child: Text('¿Ya tienes cuenta?', style: TextStyle(color: Colors.white)),
               onTap: () {
                 Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Registro()));
+                    MaterialPageRoute(builder: (context) => Login()));
               }
             ),
           ],
@@ -125,12 +108,12 @@ class _Login extends State<Login> {
     );
   }
 
-  bool gestionarLogin(String nombre, String pass) {
+  bool registrar(String nombre, String pass) {
     if (nombre.isEmpty || pass.isEmpty) {
       alerta('Faltan datos');
     }
-    else if (!g.login(nombre, pass)){
-      alerta('Credenciales incorrectos');
+    else if (Gestor().registrar(nombre, pass) == null){
+      alerta('El nombre de usuario y la contraseña debe de ser de al menos 3 caracteres');
     }
     else
       return true;
@@ -138,7 +121,7 @@ class _Login extends State<Login> {
     return false;
   }
 
-  Widget alerta(String texto) {
+  void alerta(String texto) {
     showDialog(
       context: context,
       builder: (context) {

@@ -4,6 +4,7 @@ class Post {
     String texto;
     Usuario autor;
     List<String> etiquetas;
+    DateTime fecha;
 
     String getTexto(){
       return texto;
@@ -13,7 +14,7 @@ class Post {
       this.texto = texto;
     }
 
-    List<String> getEtiquetas(){
+    List<String> getEtiquietas(){
       return etiquetas;
     }
 
@@ -21,10 +22,15 @@ class Post {
       return autor;
     }
 
+    DateTime getFecha(){
+      return fecha;
+    }
+
     Post(String texto, Usuario autor) {
       this.texto = texto;
       this.autor = autor;
       this.etiquetas = [];
+      this.fecha = DateTime.now();
     }
 
     bool tieneEtiqueta(String etiqueta){
@@ -33,6 +39,13 @@ class Post {
       while(it.moveNext())
         if(it.current.compareTo(etiqueta) == 0)
           return true;
+
+      return false;
+    }
+
+    bool tieneTexto(String texto){
+      if(this.texto.indexOf(texto) != -1)
+        return true;
 
       return false;
     }

@@ -1,8 +1,9 @@
-import 'Gestor.dart';
-//import 'FiltroEtiquetas.dart';
-//import 'FiltroCensura.dart';
-import 'Post.dart';
-import 'Usuario.dart';
+import '../controlador/Gestor.dart';
+import 'package:p_2/modelo/FiltroEtiquetas.dart';
+import 'package:p_2/modelo/FiltroCensura.dart';
+import 'package:p_2/modelo/AdminFiltros.dart';
+import 'package:p_2/modelo/Post.dart';
+import 'package:p_2/modelo/Usuario.dart';
 import 'dart:io';
 
 void imprimirPublicaciones(List<Post> publicaciones){
@@ -14,14 +15,14 @@ void imprimirPublicaciones(List<Post> publicaciones){
 
 int main(){
   Gestor gestor = new Gestor();
-  /*AdminFiltros adminFiltros;
-  FiltroEtiquetas fEtiq;
-  FiltroCensura fCen;
+  AdminFiltros adminFiltros = new AdminFiltros();
+  FiltroEtiquetas fEtiq = new FiltroEtiquetas();
+  FiltroCensura fCen = new FiltroCensura();
 
   adminFiltros.setFiltro(fEtiq);
   adminFiltros.setFiltro(fCen);
 
-  gestor.setAdminFiltros(adminFiltros);*/
+  gestor.setAdminFiltros(adminFiltros);
 
   Usuario u1 = gestor.registrar("mistyroasted", "1234");
   Usuario u2 = gestor.registrar("viewbeach", "4321");

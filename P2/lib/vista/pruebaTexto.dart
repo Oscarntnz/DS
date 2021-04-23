@@ -1,9 +1,9 @@
-import 'Gestor.dart';
-import 'FiltroEtiquetas.dart';
-import 'FiltroCensura.dart';
-import 'AdminFiltros.dart';
-import 'Post.dart';
-import 'Usuario.dart';
+import '../controlador/Gestor.dart';
+import 'package:p_2/modelo/FiltroEtiquetas.dart';
+import 'package:p_2/modelo/FiltroCensura.dart';
+import 'package:p_2/modelo/AdminFiltros.dart';
+import 'package:p_2/modelo/Post.dart';
+import 'package:p_2/modelo/Usuario.dart';
 import 'dart:io';
 
 void imprimirPublicaciones(List<Post> publicaciones){
