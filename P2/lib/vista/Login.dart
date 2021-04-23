@@ -1,26 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p_2/Registro.dart';
-import 'Constructor.dart';
-import 'Gestor.dart';
-import 'Post.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'Registro.dart';
+import 'package:p_2/controlador/Gestor.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'Home.dart';
-
-Gestor g = Constructor().build();
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Hello wolrd!',
-      home: Login(),
-    );
-  }
-}
 
 class Login extends StatefulWidget {
   @override
@@ -129,7 +112,7 @@ class _Login extends State<Login> {
     if (nombre.isEmpty || pass.isEmpty) {
       alerta('Faltan datos');
     }
-    else if (!g.login(nombre, pass)){
+    else if (!Gestor().login(nombre, pass)){
       alerta('Credenciales incorrectos');
     }
     else
@@ -143,8 +126,6 @@ class _Login extends State<Login> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          // Retrieve the text the that user has entered by using the
-          // TextEditingController.
           content: Text(texto),
         );
       },

@@ -1,25 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'Constructor.dart';
-import 'Gestor.dart';
-import 'Post.dart';
+import 'package:p_2/controlador/Gestor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Login.dart';
 import 'Home.dart';
-
-Gestor g = Constructor().build();
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Hello wolrd!',
-      home: Registro(),
-    );
-  }
-}
 
 class Registro extends StatefulWidget {
   @override
@@ -128,7 +112,7 @@ class _Registro extends State<Registro> {
     if (nombre.isEmpty || pass.isEmpty) {
       alerta('Faltan datos');
     }
-    else if (g.registrar(nombre, pass) == null){
+    else if (Gestor().registrar(nombre, pass) == null){
       alerta('El nombre de usuario y la contraseña debe de ser de al menos 3 caracteres');
     }
     else

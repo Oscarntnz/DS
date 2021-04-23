@@ -4,6 +4,7 @@ class Post {
     String texto;
     Usuario autor;
     List<String> etiquetas;
+    DateTime fecha;
 
     String getTexto(){
       return texto;
@@ -21,10 +22,15 @@ class Post {
       return autor;
     }
 
+    DateTime getFecha(){
+      return fecha;
+    }
+
     Post(String texto, Usuario autor) {
       this.texto = texto;
       this.autor = autor;
       this.etiquetas = [];
+      this.fecha = DateTime.now();
     }
 
     bool tieneEtiqueta(String etiqueta){

@@ -1,8 +1,7 @@
-import 'Gestor.dart';
+import 'package:p_2/controlador/Gestor.dart';
 import 'AdminFiltros.dart';
 import 'FiltroEtiquetas.dart';
 import 'FiltroCensura.dart';
-import 'Post.dart';
 import 'Usuario.dart';
 
 class Constructor {
@@ -14,8 +13,7 @@ class Constructor {
     return _instance;
   }
 
-  Gestor build() {
-    Gestor gestor = new Gestor();
+  void build() {
     AdminFiltros adminFiltros = new AdminFiltros();
     FiltroEtiquetas fEtiq = new FiltroEtiquetas();
     FiltroCensura fCen = new FiltroCensura();
@@ -23,18 +21,22 @@ class Constructor {
     adminFiltros.setFiltro(fEtiq);
     adminFiltros.setFiltro(fCen);
 
-    gestor.setAdminFiltros(adminFiltros);
+    Gestor().setAdminFiltros(adminFiltros);
 
-    Usuario u1 = gestor.registrar("mistyroasted", "1234");
-    Usuario u2 = gestor.registrar("viewbeach", "4321");
-    Usuario u3 = gestor.registrar("cartierfalter", "13245");
+    Usuario u1 = Gestor().registrar("mistyroasted", "1234");
+    Usuario u2 = Gestor().registrar("viewbeach", "4321");
+    Usuario u3 = Gestor().registrar("cartierfalter", "13245");
 
-    gestor.publicarPost("esta es la palla que he hecho hoy #paella", u1);
-    gestor.publicarPost(
+    Gestor().login(u1.getNombre(), u1.getPassword());
+    Gestor().seguir(u2);
+    Gestor().seguir(u3);
+    Gestor().login(u2.getNombre(), u2.getPassword());
+    Gestor().seguir(u1);
+
+    Gestor().publicarPost("esta es la palla que he hecho hoy #paella", u1);
+    Gestor().publicarPost(
         "hoy he hecho unas croquetas para comer #croquetas #delicia", u2);
-    gestor.publicarPost(
+    Gestor().publicarPost(
         "hello world yo tambien quiero croquetas #croquetas", u3);
-
-    return gestor;
   }
 }
