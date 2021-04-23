@@ -33,7 +33,18 @@ class Gestor {
         return publicaciones;
     }
 
-    List<Post> getPublicaciones(String etiqueta){
+    List<Post> getPublicaciones(String texto){
+      List<Post> resultado = [];
+      var it = publicaciones.iterator;
+
+      while(it.moveNext())
+        if(it.current.tieneTexto(texto))
+          resultado.add(it.current);
+
+      return resultado;
+    }
+
+    List<Post> getPublicacionesEtiqueta(String etiqueta){
         List<Post> resultado = [];
         var it = publicaciones.iterator;
 
@@ -58,9 +69,11 @@ class Gestor {
     List<Post> buscar(String query){
       List<Post> resultado = [];
 
-      if(query != null)
+      if(query != null && query.isNotEmpty)
         if(query[0] == '@')
           resultado = getPublicacionesUsuario(buscarUsuario(query.substring(1, query.length)));
+        else if(query[0] == '#')
+          resultado = getPublicacionesEtiqueta(query.substring(1, query.length));
         else
           resultado = getPublicaciones(query);
 

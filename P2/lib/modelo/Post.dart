@@ -43,6 +43,13 @@ class Post {
       return false;
     }
 
+    bool tieneTexto(String texto){
+      if(this.texto.indexOf(texto) != -1)
+        return true;
+
+      return false;
+    }
+
     void setEtiquetas(List<String> etiquetas){
       this.etiquetas.clear();
       var it = etiquetas.iterator;
