@@ -1,20 +1,20 @@
 
-import 'package:p2/Filtro.dart';
-import 'package:p2/Post.dart';
+import 'Filtro.dart';
+import 'Post.dart';
 
 class FiltroCensura extends Filtro {
 
   static const int N_PAL_PROH = 3;
-  List<String> PALABRAS_PROHIBIDAS = ["hello", "world", "filtro"];
+  static const List<String> PALABRAS_PROHIBIDAS = ["hello", "world", "filtro"];
 
-  void reemplazar(String texto, int indice, String palabra){
+  String reemplazar(String texto, int indice, String palabra){
     String newPalabra = "";
     for(int i = 0; i < palabra.length; i++){
       newPalabra += '*';
     }
-    String newTexto = texto.substring(indice)+newPalabra+texto.substring(indice+1);
+    String newTexto = texto.substring(0, indice)+newPalabra+texto.substring(indice+palabra.length, texto.length);
 
-    texto = newTexto;
+    return newTexto;
   }
 
 
@@ -27,7 +27,7 @@ class FiltroCensura extends Filtro {
       indice = resultado.indexOf(PALABRAS_PROHIBIDAS[i]);
 
       if(indice != -1){
-        reemplazar(resultado, indice, PALABRAS_PROHIBIDAS[i]);
+        resultado = reemplazar(resultado, indice, PALABRAS_PROHIBIDAS[i]);
       }
 
       }while(indice != -1);

@@ -1,5 +1,5 @@
-import 'package:p2/Filtro.dart';
-import 'package:p2/Post.dart';
+import 'Filtro.dart';
+import 'Post.dart';
 
 class CadenaFiltros {
 
@@ -8,15 +8,16 @@ class CadenaFiltros {
 
 
   CadenaFiltros(Post target){
-  this.target = target;
+    this.target = target;
+    this.filtros = [];
   }
 
   addFiltro(Filtro filtro) {
-  filtros.add(filtro);
+    filtros.add(filtro);
   }
 
   setTarget(Post objetivo){
-  target = objetivo;
+    target = objetivo;
   }
 
   ejecutar() {

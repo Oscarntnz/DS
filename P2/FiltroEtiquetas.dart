@@ -1,25 +1,25 @@
-import 'package:p2/Filtro.dart';
-import 'package:p2/Post.dart';
+import 'Filtro.dart';
+import 'Post.dart';
 
 class FiltroEtiquetas extends Filtro {
   ejecutar(Post post) {
 
-    String etiqueta;
-    List<String> etiquetas;
+    String etiqueta = "";
+    List<String> etiquetas = [];
     String texto = post.getTexto();
     int i = 0;
 
     while(i < texto.length){
       if(texto[i] == '#'){
         i++;
-        while(texto[i] != ' ' && i < texto.length){
+        while(i < texto.length && texto[i] != ' '){
           etiqueta += texto[i];
           i++;
         }
 
         if(!etiqueta.isEmpty){
           etiquetas.add(etiqueta);
-          etiquetas.clear();
+          etiqueta = "";
         }
     }
 

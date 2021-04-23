@@ -1,72 +1,104 @@
-import 'package:flutter/material.dart';
-import 'Constructor.dart';
 import 'Gestor.dart';
+import 'FiltroEtiquetas.dart';
+import 'FiltroCensura.dart';
+import 'AdminFiltros.dart';
 import 'Post.dart';
+import 'Usuario.dart';
+import 'dart:io';
 
-Gestor g = Constructor().build();
+void imprimirPublicaciones(List<Post> publicaciones){
+  var it = publicaciones.iterator;
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Hello wolrd',
-      home: Publicaciones(),
-    );
-  }
+  while(it.moveNext())
+    print(it.current.getTexto() + "\n\t- " + it.current.getAutor().getNombre());
 }
 
-class Publicaciones extends StatefulWidget {
-  @override
-  _PublicacionesAleatorias createState() => _PublicacionesAleatorias();
+int main(){
+  Gestor gestor = new Gestor();
+  AdminFiltros adminFiltros = new AdminFiltros();
+  FiltroEtiquetas fEtiq = new FiltroEtiquetas();
+  FiltroCensura fCen = new FiltroCensura();
+
+  adminFiltros.setFiltro(fEtiq);
+  adminFiltros.setFiltro(fCen);
+
+  gestor.setAdminFiltros(adminFiltros);
+
+  Usuario u1 = gestor.registrar("mistyroasted", "1234");
+  Usuario u2 = gestor.registrar("viewbeach", "4321");
+  Usuario u3 = gestor.registrar("cartierfalter", "13245");
+
+  gestor.publicarPost("esta es la palla que he hecho hoy #paella", u1);
+  gestor.publicarPost("hoy he hecho unas croquetas para comer #croquetas #delicia", u2);
+  gestor.publicarPost("hello world yo tambien quiero croquetas #croquetas", u3);
+
+  String opcion = "\0";
+
+  while(opcion != "q"){
+    print("Bienvenido:");
+    print("1.- registrarse:");
+    print("q.- salir:");
+    opcion = stdin.readLineSync();
+
+    if(opcion == '1'){
+      bool valido = false;
+      String nom, pass;
+      Usuario user;
+  
+      while(!valido){
+        print("Nombre de usuario:");
+        nom = stdin.readLineSync();
+        print("Contraseña:");
+        pass = stdin.readLineSync();
+    
+        user = gestor.registrar(nom, pass);
+    
+        if(user == null){
+          print("Datos no validos, prueba de nuevo");
+        }
+        else{
+          print("Registro correcto");
+          valido = true;
+        }
+      }
+  
+      opcion = "\0";
+      while(opcion != 'q'){
+        print("1.- publicar:");
+        print("2.- buscar:");
+        print("q.- salir:");
+        opcion = stdin.readLineSync();
+        print("");
+
+        if(opcion == '1'){
+          String texto;
+
+          print("Introduce el texto:");
+          texto = stdin.readLineSync();
+
+          Post publ = gestor.publicarPost(texto, user);
+
+          print(publ.getTexto());
+        }
+        else if(opcion == '2'){
+          List<Post> publicaciones;
+          String etiqueta;
+
+          print("Introduce la etiqueta a buscar:");
+          etiqueta = stdin.readLineSync();
+
+          publicaciones = gestor.getPublicaciones(etiqueta);
+
+          if(publicaciones != null)  imprimirPublicaciones(publicaciones);
+          else  print("No hay publicaciones con esa etiqueta");
+        }
+      }
+
+    }
+    else if(opcion != 'q'){
+      print("Opcion no valida");
+    }
+  }
+
+  return 0;
 }
-
-class _PublicacionesAleatorias extends State<Publicaciones> {
-  final _suggestions = g.getAllPublicaciones();
-  final _biggerFont = TextStyle(fontSize: 20.0);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Hello wolrd'),
-      ),
-      body: _getPosts(),
-    );
-  }
-
-  Widget _getPosts() {
-    return ListView.builder(
-        padding: EdgeInsets.all(16.0),
-        itemCount: _suggestions.length*2,
-        itemBuilder: (context, i) {
-          if (i.isOdd) return Divider();
-
-          return _buildRow(_suggestions[i ~/ 2]);
-        });
-  }
-
-  Widget _buildRow(Post post) {
-    return ListTile(
-      title: Text(
-        post.getAutor().getNombre(),
-      ),
-      subtitle: Text(post.getTexto(),
-      style: _biggerFont,
-      ),
-    );
-  }
-}
-/*
-class PublicacionesAleatorias extends StatefulWidget {
-  @override
-  _EstadoPublicacionesAleatorias createState() => _EstadoPublicacionesAleatorias();
-}
-
-class _EstadoPublicacionesAleatorias extends State<PublicacionesAleatorias> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}*/

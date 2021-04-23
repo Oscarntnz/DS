@@ -1,6 +1,5 @@
-import 'package:p2/Post.dart';
+import 'Post.dart';
 
 abstract class Filtro {
-
   String ejecutar(Post post);
 }

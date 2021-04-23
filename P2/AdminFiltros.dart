@@ -1,20 +1,24 @@
-import 'package:p2/CadenaFiltros.dart';
-import 'package:p2/Post.dart';
-import 'package:p2/Filtro.dart';
+import 'CadenaFiltros.dart';
+import 'Post.dart';
+import 'Filtro.dart';
 
 
 class AdminFiltros{
   CadenaFiltros cadenaFiltros;
 
  void setFiltro(Filtro filtro) {
-  cadenaFiltros.addFiltro(filtro);
+   this.cadenaFiltros.addFiltro(filtro);
   }
 
  void setTarget(Post post) {
-  cadenaFiltros.setTarget(post);
+   this.cadenaFiltros.setTarget(post);
+  }
+
+  AdminFiltros(){
+   this.cadenaFiltros = new CadenaFiltros(null);
   }
 
  void ejecutar() {
-    cadenaFiltros.ejecutar();
+   this.cadenaFiltros.ejecutar();
   }
 }
