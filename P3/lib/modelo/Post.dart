@@ -14,7 +14,7 @@ class Post {
       this.texto = texto;
     }
 
-    List<String> getEtiquietas(){
+    List<String> getEtiquetas(){
       return etiquetas;
     }
 
