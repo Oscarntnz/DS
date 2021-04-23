@@ -21,9 +21,19 @@ class _Perfil extends State<Perfil> {
 
   _Perfil({@required this.usuario}): super();
 
+  var seguidores = 0;
+  var seguidos = 0;
+
+  void actualizar() {
+    setState(() {
+      seguidores = this.usuario.getSeguidores().length;
+      seguidos = this.usuario.getSeguidos().length;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
+    actualizar();
     return Scaffold(
       appBar: AppBar(
         title: Text(Gestor().getUsuarioActivo().getNombre(),
@@ -53,11 +63,18 @@ class _Perfil extends State<Perfil> {
         SizedBox(height: 20.0),
         Row(
           children: [
-            Text('Seguidores: ' + this.usuario.getSeguidores().length.toString()),
-            Text('Seguidos: ' + this.usuario.getSeguidos().length.toString()),
+            Listener(child: Text('Seguidores: ' + seguidores.toString())),
+            Listener(child: Text('Seguidos: ' + seguidos.toString())),
           ],
           mainAxisAlignment: MainAxisAlignment.spaceAround,
         ),
+        SizedBox(height: 20.0),
+        ElevatedButton(onPressed: () {
+          Gestor().seguir(usuario);
+
+          actualizar();
+        },
+        child: Text('seguir'),),
         SizedBox(height: 20.0),
         Expanded(child: _getPosts()),
       ],

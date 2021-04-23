@@ -87,7 +87,7 @@ class _Registro extends State<Registro> {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Home()));
                 },
-                child: Text('Registrarsen'),
+                child: Text('Registrarse'),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
                   onPrimary: Colors.blueAccent,
