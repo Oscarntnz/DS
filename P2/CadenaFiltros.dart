@@ -12,6 +12,10 @@ class CadenaFiltros {
     this.filtros = [];
   }
 
+  List<Filtro> getFiltros(){
+    return filtros;
+  }
+
   addFiltro(Filtro filtro) {
     filtros.add(filtro);
   }

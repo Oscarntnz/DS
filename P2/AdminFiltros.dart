@@ -13,6 +13,10 @@ class AdminFiltros{
  void setTarget(Post post) {
    this.cadenaFiltros.setTarget(post);
   }
+  
+  List<Filtro> getFiltros(){
+    return cadenaFiltros.getFiltros();
+  }
 
   AdminFiltros(){
    this.cadenaFiltros = new CadenaFiltros(null);

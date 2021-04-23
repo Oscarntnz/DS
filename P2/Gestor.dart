@@ -85,4 +85,12 @@ class Gestor {
         return publicaciones.last;
     }
 
+    List<Usuario> getSeguidores(){
+      return usuarioActivo.getSeguidores();
+    }
+
+    List<Usuario> getSeguidos(){
+      return usuarioActivo.getSeguidos();
+    }
+
 }
