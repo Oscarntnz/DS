@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p_2/controlador/Gestor.dart';
 import 'package:p_2/modelo/Post.dart';
+import 'package:intl/intl.dart';
+import 'Perfil.dart';
 
 class Busqueda extends SearchDelegate {
   @override
@@ -35,7 +37,7 @@ class Busqueda extends SearchDelegate {
         itemBuilder: (context, i) {
           if (i.isOdd) return Divider();
 
-          return _buildPost(elementos[i ~/ 2]);
+          return _buildPost(elementos[i ~/ 2], context);
         });
   }
 
@@ -53,15 +55,18 @@ class Busqueda extends SearchDelegate {
     );
   }
 
-  Widget _buildPost(Post post){
+  Widget _buildPost(Post post, BuildContext context){
     final _estiloTexto = TextStyle(fontSize: 20.0);
     final _estiloAutor =  TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold);
+    final DateFormat formatter = DateFormat("H:m - dd\\MM\\yyyy");
 
     return ListTile(
-        title: Text(
-          post.getAutor().getNombre(),
+      title: InkWell(
+        child: Text( post.getAutor().getNombre(),
           style: _estiloAutor,
         ),
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Perfil(usuario: post.getAutor()))),
+      ),
         subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children:
@@ -73,7 +78,7 @@ class Busqueda extends SearchDelegate {
                 ),
               ),
 
-              Text(post.getAutor().getNombre()),
+              Text(formatter.format(post.getFecha())),
             ]
         ),
         isThreeLine: true,

@@ -10,12 +10,12 @@ class AdminFiltros{
    this.cadenaFiltros.addFiltro(filtro);
   }
 
- void setTarget(Post post) {
-   this.cadenaFiltros.setTarget(post);
-  }
-
   List<Filtro> getFiltros(){
     return cadenaFiltros.getFiltros();
+  }
+
+  void setTarget(Post post) {
+   this.cadenaFiltros.setTarget(post);
   }
 
   AdminFiltros(){

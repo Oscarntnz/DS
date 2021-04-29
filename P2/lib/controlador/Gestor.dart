@@ -169,8 +169,4 @@ class Gestor {
       return usuarioActivo.getSeguidores();
     }
 
-    List<Usuario> getSeguidores(){
-      return usuarioActivo.getSeguidores();
-    }
-
 }

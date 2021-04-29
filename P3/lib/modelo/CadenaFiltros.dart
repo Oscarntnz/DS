@@ -3,30 +3,30 @@ import 'Post.dart';
 
 class CadenaFiltros {
 
-  List<Filtro> filtros;
-  Post target;
+  List<Filtro> _filtros;
+  Post _target;
 
 
   CadenaFiltros(Post target){
-    this.target = target;
-    this.filtros = [];
-  }
-
-  List<Filtro> getFiltros(){
-    return filtros;
+    this._target = target;
+    this._filtros = [];
   }
 
   addFiltro(Filtro filtro) {
-    filtros.add(filtro);
+    _filtros.add(filtro);
+  }
+
+  List<Filtro> getFiltros(){
+    return _filtros;
   }
 
   setTarget(Post objetivo){
-    target = objetivo;
+    _target = objetivo;
   }
 
   ejecutar() {
-    for(int i= 0; i < filtros.length; i++)
-      filtros[i].ejecutar(target);
+    for(int i= 0; i < _filtros.length; i++)
+      _filtros[i].ejecutar(_target);
   }
 }
 

@@ -47,62 +47,66 @@ class _Login extends State<Login> {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30.0),
-        child:Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text('Iniciar sesión', style: _estiloTitulo),
-            SizedBox(height: 10.0),
-            TextFormField(
-              style: TextStyle(color: Colors.white),
-              cursorColor: Colors.white,
-              decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-                hintText: 'Nombre de usuario',
-                labelText: 'Nombre de usuario',
-                hintStyle: TextStyle(color: Colors.white60),
-                labelStyle: TextStyle(color: Colors.white),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('Iniciar sesión', style: _estiloTitulo),
+              SizedBox(height: 10.0),
+              TextFormField(
+                style: TextStyle(color: Colors.white),
+                cursorColor: Colors.white,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                  hintText: 'Nombre de usuario',
+                  labelText: 'Nombre de usuario',
+                  hintStyle: TextStyle(color: Colors.white60),
+                  labelStyle: TextStyle(color: Colors.white),
+                ),
+                controller: controlUsuario,
               ),
-              controller: controlUsuario,
-            ),
-            SizedBox(height: 10.0),
-            TextFormField(
-              style: TextStyle(color: Colors.white),
-              cursorColor: Colors.white,
-              decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-                enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-                hintText: 'Contraseña',
-                labelText: 'Contraseña',
-                hintStyle: TextStyle(color: Colors.white60),
-                labelStyle: TextStyle(color: Colors.white),
+              SizedBox(height: 10.0),
+              TextFormField(
+                style: TextStyle(color: Colors.white),
+                cursorColor: Colors.white,
+                decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                  hintText: 'Contraseña',
+                  labelText: 'Contraseña',
+                  hintStyle: TextStyle(color: Colors.white60),
+                  labelStyle: TextStyle(color: Colors.white),
+                ),
+                controller: controlPass,
               ),
-              controller: controlPass,
-            ),
-            SizedBox(height: 300.0),
-            Container(
-              child: ElevatedButton(
-                onPressed: () {
-                  if(gestionarLogin(controlUsuario.text, controlPass.text))
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Home()));
-                },
-                child: Text('Iniciar sesión'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  onPrimary: Colors.blueAccent,
+              SizedBox(height: 300.0),
+              Container(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if(gestionarLogin(controlUsuario.text, controlPass.text))
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Home()));
+                  },
+                  child: Text('Iniciar sesión'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.white,
+                    onPrimary: Colors.blueAccent,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 20.0),
-            InkWell(
-              child: Text('¿No tienes cuenta?', style: TextStyle(color: Colors.white)),
-              onTap: () {
-                Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Registro()));
-              }
-            ),
-          ],
+
+              SizedBox(height: 20.0),
+
+              InkWell(
+                child: Text('¿No tienes cuenta?', style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Registro()));
+                }
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,40 +1,40 @@
 import 'Usuario.dart';
 
 class Post {
-    String texto;
-    Usuario autor;
-    List<String> etiquetas;
-    DateTime fecha;
+    String _texto;
+    Usuario _autor;
+    List<String> _etiquetas;
+    DateTime _fecha;
 
     String getTexto(){
-      return texto;
+      return _texto;
     }
 
     void setTexto(String texto){
-      this.texto = texto;
+      this._texto = texto;
     }
 
     List<String> getEtiquetas(){
-      return etiquetas;
+      return _etiquetas;
     }
 
     Usuario getAutor(){
-      return autor;
+      return _autor;
     }
 
     DateTime getFecha(){
-      return fecha;
+      return _fecha;
     }
 
     Post(String texto, Usuario autor) {
-      this.texto = texto;
-      this.autor = autor;
-      this.etiquetas = [];
-      this.fecha = DateTime.now();
+      this._texto = texto;
+      this._autor = autor;
+      this._etiquetas = [];
+      this._fecha = DateTime.now();
     }
 
     bool tieneEtiqueta(String etiqueta){
-      var it = etiquetas.iterator;
+      var it = this._etiquetas.iterator;
 
       while(it.moveNext())
         if(it.current.compareTo(etiqueta) == 0)
@@ -44,18 +44,18 @@ class Post {
     }
 
     bool tieneTexto(String texto){
-      if(this.texto.indexOf(texto) != -1)
+      if(this._texto.indexOf(texto) != -1)
         return true;
 
       return false;
     }
 
     void setEtiquetas(List<String> etiquetas){
-      this.etiquetas.clear();
+      this._etiquetas.clear();
       var it = etiquetas.iterator;
 
       while(it.moveNext())
-        this.etiquetas.add(it.current);
+        this._etiquetas.add(it.current);
 
     }
 }

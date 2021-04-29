@@ -5,6 +5,7 @@ import 'Busqueda.dart';
 import 'package:p_2/modelo/Post.dart';
 import 'package:p_2/modelo/Usuario.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class Perfil extends StatefulWidget {
   final Usuario usuario;
@@ -97,12 +98,15 @@ class _Perfil extends State<Perfil> {
 
   Widget _buildPost(Post post) {
     final _estiloTexto = TextStyle(fontSize: 20.0);
-    final _estiloAutor = TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold);
+    final _estiloAutor =  TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold);
+    final DateFormat formatter = DateFormat("H:m - dd\\MM\\yyyy");
 
     return ListTile(
-      title: Text(
-        post.getAutor().getNombre(),
-        style: _estiloAutor,
+      title: InkWell(
+        child: Text( post.getAutor().getNombre(),
+          style: _estiloAutor,
+        ),
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Perfil(usuario: post.getAutor()))),
       ),
       subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,7 +119,7 @@ class _Perfil extends State<Perfil> {
               ),
             ),
 
-            Text(post.getAutor().getNombre()),
+            Text(formatter.format(post.getFecha())),
           ]
       ),
       isThreeLine: true,

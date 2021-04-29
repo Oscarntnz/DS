@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:p_2/controlador/Gestor.dart';
 import 'package:p_2/modelo/Post.dart';
 import 'Busqueda.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'Perfil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
@@ -37,8 +37,7 @@ class _Home extends State<Home> {
           return ListaPosts();
         },
       ),
-      floatingActionButtonLocation:
-      FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add), onPressed: () => publicarPost(),
       ),

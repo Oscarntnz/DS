@@ -1,28 +1,28 @@
 class Usuario {
-  String nombreUsuario;
-  String password;
-  List<Usuario> seguidos;
-  List<Usuario> seguidores;
-  List<String> busquedasRecientes;
+  String _nombreUsuario;
+  String _password;
+  List<Usuario> _seguidos;
+  List<Usuario> _seguidores;
+  List<String> _busquedasRecientes;
 
   String getNombre(){
-    return nombreUsuario;
+    return _nombreUsuario;
   }
 
   String getPassword(){
-    return password;
+    return _password;
   }
 
   List<Usuario> getSeguidores(){
-    return seguidores;
+    return _seguidores;
   }
 
   List<Usuario> getSeguidos(){
-    return seguidos;
+    return _seguidos;
   }
 
   bool isSeguido(Usuario usu){
-    if(seguidos.contains(usu))
+    if(this._seguidos.contains(usu))
       return true;
 
     else
@@ -37,29 +37,29 @@ class Usuario {
       return false;
   }
 
-  void seguir(Usuario usu){
-    if(!isSeguido(usu))
-      seguidos.add(usu);
+  void seguir(Usuario u){
+    if(!isSeguido(u) && u != this)
+      _seguidos.add(u);
   }
 
   void addSeguidor(Usuario u){
-    if(!seguidores.contains(u))
-      seguidores.add(u);
+    if(!_seguidores.contains(u) && u != this)
+      _seguidores.add(u);
   }
 
   Usuario(String nombreUsuario, String password){
-    this.nombreUsuario = nombreUsuario;
-    this.password = password;
-    seguidos = [];
-    seguidores = [];
-    busquedasRecientes = [];
+    this._nombreUsuario = nombreUsuario;
+    this._password = password;
+    _seguidos = [];
+    _seguidores = [];
+    _busquedasRecientes = [];
   }
 
   List<String> getBusquedasRecientes(){
-    return busquedasRecientes;
+    return _busquedasRecientes;
   }
 
   void pushBusquedasRecientes(String query){
-    busquedasRecientes.add(query);
+    _busquedasRecientes.add(query);
   }
 }
