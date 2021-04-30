@@ -3,7 +3,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:flutter/material.dart';
 import 'package:p_2/main.dart' as app;
 
-//flutter drive --driver=test_driver/integration_test_driver.dart --target=integration_test/test_integracion.dart
+//flutter drive --driver=test/driver_integracion.dart --target=test/test_integracion.dart
 
 void main() {
   group("Test integración", () {
