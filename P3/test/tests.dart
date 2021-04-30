@@ -63,7 +63,7 @@ void main() {
       expect(post.getEtiquetas()[2], "etiqueta3");
     });
 
-    test('tieneEtiqueta detecta correctamente las etiquetas', () {
+    test('tieneTexto detecta correctamente las partes del texto', () {
       Post post = new Post('cualquierpost', null);
 
       expect(post.tieneTexto("cu"), true);
