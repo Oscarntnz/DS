@@ -1,7 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../modelo/Usuario.dart';
-import 'dart:developer';
 import 'Gestor.dart';
 import '../modelo/Post.dart';
 

@@ -1,0 +1,294 @@
+@startuml
+set namespaceSeparator ::
+
+class "p_4::controlador::BD.dart::BD" {
+  {static} -String* _URL
+  {static} -String* _jsonHeader
+  {static} -BD* _instance
+  +Future<List<Usuario*>*>* getAllUsuarios()
+  +void insertarSeguido()
+  +Future<List<Post*>*>* getAllPosts()
+  +Future<bool*>* subirPost()
+  +Future<bool*>* subirUsuario()
+  +Future<bool*>* darLike()
+  +Future<bool*>* quitarLike()
+  +Future<bool*>* subirSeguido()
+  +Future<bool*>* quitarSeguido()
+}
+
+"p_4::controlador::BD.dart::BD" o-- "p_4::controlador::BD.dart::BD*"
+
+class "p_4::controlador::Constructor.dart::Constructor" {
+  {static} -Constructor* _instance
+  +void build()
+}
+
+"p_4::controlador::Constructor.dart::Constructor" o-- "p_4::controlador::Constructor.dart::Constructor*"
+
+class "p_4::controlador::Gestor.dart::Gestor" {
+  -AdminFiltros* _adminFiltros
+  -List<Usuario*>* _usuarios
+  -List<Post*>* _publicaciones
+  -Usuario* _usuarioActivo
+  {static} -Gestor* _instance
+  +void inicializar()
+  +void recargarPost()
+  +void recargarUsuarios()
+  +List<Usuario*>* getUsuarios()
+  +Usuario* getUsuarioById()
+  +dynamic getUsuario()
+  +Post* getPostById()
+  +List<Post*>* getAllPublicaciones()
+  +List<Post*>* getPublicaciones()
+  +List<Post*>* getPublicacionesEtiqueta()
+  +List<Post*>* getPublicacionesUsuario()
+  +List<Post*>* buscar()
+  +Usuario* buscarUsuario()
+  +Usuario* existeUsuario()
+  +bool* login()
+  +void logout()
+  +Future<Usuario*>* registrar()
+  +bool* addUsuario()
+  +void setAdminFiltros()
+  +Future<Post*>* publicarPost()
+  +Post* addPost()
+  +Usuario* getUsuarioActivo()
+  +List<String*>* getBusquedasRecientes()
+  +void pushBusquedasRecientes()
+  +bool* cargarSeguir()
+  +Future<bool*>* toggleSeguir()
+  +List<Usuario*>* getSeguidores()
+  +List<Usuario*>* getSeguidos()
+  +Future<bool*>* toggleLike()
+  +bool* cambiarLike()
+  +int* getLikes()
+  +bool* haDadoLike()
+  +bool* sigueA()
+}
+
+"p_4::controlador::Gestor.dart::Gestor" o-- "p_4::modelo::AdminFiltros.dart::AdminFiltros*"
+"p_4::controlador::Gestor.dart::Gestor" o-- "p_4::modelo::Usuario.dart::Usuario*"
+"p_4::controlador::Gestor.dart::Gestor" o-- "p_4::controlador::Gestor.dart::Gestor*"
+
+class "p_4::main.dart::MyApp" {
+  +Widget* build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "p_4::main.dart::MyApp"
+
+class "p_4::modelo::AdminFiltros.dart::AdminFiltros" {
+  +CadenaFiltros* cadenaFiltros
+  +void setFiltro()
+  +List<Filtro*>* getFiltros()
+  +void setTarget()
+  +void ejecutar()
+}
+
+"p_4::modelo::AdminFiltros.dart::AdminFiltros" o-- "p_4::modelo::CadenaFiltros.dart::CadenaFiltros*"
+
+class "p_4::modelo::CadenaFiltros.dart::CadenaFiltros" {
+  -List<Filtro*>* _filtros
+  -Post* _target
+  +dynamic addFiltro()
+  +List<Filtro*>* getFiltros()
+  +dynamic setTarget()
+  +dynamic ejecutar()
+}
+
+"p_4::modelo::CadenaFiltros.dart::CadenaFiltros" o-- "p_4::modelo::Post.dart::Post*"
+
+abstract class "p_4::modelo::Filtro.dart::Filtro" {
+  +String* ejecutar()
+}
+
+class "p_4::modelo::FiltroCensura.dart::FiltroCensura" {
+  {static} +int* N_PAL_PROH
+  {static} +List<String*>* PALABRAS_PROHIBIDAS
+  +String* reemplazar()
+  +String* ejecutar()
+}
+
+"p_4::modelo::Filtro.dart::Filtro" <|-- "p_4::modelo::FiltroCensura.dart::FiltroCensura"
+
+class "p_4::modelo::FiltroEtiquetas.dart::FiltroEtiquetas" {
+  +String* ejecutar()
+}
+
+"p_4::modelo::Filtro.dart::Filtro" <|-- "p_4::modelo::FiltroEtiquetas.dart::FiltroEtiquetas"
+
+class "p_4::modelo::Post.dart::Post" {
+  -String* _texto
+  -Usuario* _autor
+  -List<String*>* _etiquetas
+  -DateTime* _fecha
+  -List<Usuario*>* _likes
+  -int* _id
+  +void setAutor()
+  +void setLikes()
+  +void setId()
+  +String* getTexto()
+  +int* getId()
+  +void setTexto()
+  +List<String*>* getEtiquetas()
+  +Usuario* getAutor()
+  +DateTime* getFecha()
+  +bool* tieneEtiqueta()
+  +bool* tieneTexto()
+  +void setEtiquetas()
+  +int* getLikes()
+  +int* haDadoLike()
+  +bool* toggleLike()
+  +bool* ==()
+  +Map<String*, dynamic>* toJson()
+  +void addEtiqueta()
+}
+
+"p_4::modelo::Post.dart::Post" o-- "p_4::modelo::Usuario.dart::Usuario*"
+
+class "p_4::modelo::Usuario.dart::Usuario" {
+  -String* _nombreUsuario
+  -String* _password
+  -List<Usuario*>* _seguidos
+  -List<Usuario*>* _seguidores
+  -List<String*>* _busquedasRecientes
+  -int* _id
+  +int* getId()
+  +String* getNombre()
+  +String* getPassword()
+  +List<Usuario*>* getSeguidores()
+  +List<Usuario*>* getSeguidos()
+  +void setId()
+  +bool* isSeguido()
+  +bool* isSeguidor()
+  +void seguir()
+  +void addSeguidor()
+  +List<String*>* getBusquedasRecientes()
+  +void pushBusquedasRecientes()
+  +bool* ==()
+  +bool* sigueA()
+  +void dejarDeSeguir()
+  +void removeSeguidor()
+  +Map<String*, dynamic>* toJson()
+}
+
+class "p_4::vista::Busqueda.dart::Busqueda" {
+  +List<Widget*>* buildActions()
+  +Widget* buildLeading()
+  +Widget* buildResults()
+  +Widget* buildSuggestions()
+}
+
+"flutter::src::material::search.dart::SearchDelegate" <|-- "p_4::vista::Busqueda.dart::Busqueda"
+
+class "p_4::vista::Home.dart::Home" {
+  +_Home* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "p_4::vista::Home.dart::Home"
+
+class "p_4::vista::Home.dart::_Home" {
+  -Color* _colorBarra
+  +ValueNotifier<ListView*>* listaPosts
+  +Widget* build()
+  +void publicarPost()
+}
+
+"p_4::vista::Home.dart::_Home" o-- "dart::ui::Color*"
+"p_4::vista::Home.dart::_Home" o-- "flutter::src::foundation::change_notifier.dart::ValueNotifier<ListView*>*"
+"flutter::src::widgets::framework.dart::State" <|-- "p_4::vista::Home.dart::_Home"
+
+class "p_4::vista::Home.dart::ListaPosts" {
+  +EstadoPosts* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "p_4::vista::Home.dart::ListaPosts"
+
+class "p_4::vista::Home.dart::EstadoPosts" {
+  +ListView* posts
+  +Widget* build()
+  +dynamic actualizarPosts()
+  -Widget* _getPosts()
+}
+
+"p_4::vista::Home.dart::EstadoPosts" o-- "flutter::src::widgets::scroll_view.dart::ListView*"
+"flutter::src::widgets::framework.dart::State" <|-- "p_4::vista::Home.dart::EstadoPosts"
+
+class "p_4::vista::InterfazPost.dart::InterfazPost" {
+  +Post* post
+  +_InterfazPost* createState()
+}
+
+"p_4::vista::InterfazPost.dart::InterfazPost" o-- "p_4::modelo::Post.dart::Post*"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "p_4::vista::InterfazPost.dart::InterfazPost"
+
+class "p_4::vista::InterfazPost.dart::_InterfazPost" {
+  -IconData* _iconoLike
+  -int* _nLikes
+  +IconData* getIcono()
+  +Widget* build()
+}
+
+"p_4::vista::InterfazPost.dart::_InterfazPost" o-- "flutter::src::widgets::icon_data.dart::IconData*"
+"flutter::src::widgets::framework.dart::State" <|-- "p_4::vista::InterfazPost.dart::_InterfazPost"
+
+class "p_4::vista::Login.dart::Login" {
+  +_Login* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "p_4::vista::Login.dart::Login"
+
+class "p_4::vista::Login.dart::_Login" {
+  -List<Color*>* _coloresFondo
+  -TextStyle* _estiloTitulo
+  +Widget* build()
+  +Widget* buildLogin()
+  +bool* gestionarLogin()
+  +void alerta()
+}
+
+"p_4::vista::Login.dart::_Login" o-- "flutter::src::painting::text_style.dart::TextStyle*"
+"flutter::src::widgets::framework.dart::State" <|-- "p_4::vista::Login.dart::_Login"
+
+class "p_4::vista::Perfil.dart::Perfil" {
+  +Usuario* usuario
+  +_Perfil* createState()
+}
+
+"p_4::vista::Perfil.dart::Perfil" o-- "p_4::modelo::Usuario.dart::Usuario*"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "p_4::vista::Perfil.dart::Perfil"
+
+class "p_4::vista::Perfil.dart::_Perfil" {
+  +dynamic usuario
+  -Color* _colorBarra
+  -String* _seguirDejarDe
+  +int* seguidores
+  +int* seguidos
+  +void actualizar()
+  +Widget* build()
+  +Widget* buildPerfil()
+  -Widget* _getPosts()
+}
+
+"p_4::vista::Perfil.dart::_Perfil" o-- "dart::ui::Color*"
+"flutter::src::widgets::framework.dart::State" <|-- "p_4::vista::Perfil.dart::_Perfil"
+
+class "p_4::vista::Registro.dart::Registro" {
+  +_Registro* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "p_4::vista::Registro.dart::Registro"
+
+class "p_4::vista::Registro.dart::_Registro" {
+  -List<Color*>* _coloresFondo
+  -TextStyle* _estiloTitulo
+  +Widget* build()
+  +Widget* buildRegistro()
+  +Future<bool*>* registrar()
+  +void alerta()
+}
+
+"p_4::vista::Registro.dart::_Registro" o-- "flutter::src::painting::text_style.dart::TextStyle*"
+"flutter::src::widgets::framework.dart::State" <|-- "p_4::vista::Registro.dart::_Registro"
+
+
+@enduml

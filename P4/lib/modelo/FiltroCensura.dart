@@ -1,5 +1,5 @@
 
-import 'package:p_2/modelo/Filtro.dart';
+import 'Filtro.dart';
 import 'Post.dart';
 
 class FiltroCensura extends Filtro {

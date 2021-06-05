@@ -1,10 +1,10 @@
 import 'package:test/test.dart';
-import 'package:p_2/controlador/Gestor.dart';
-import 'package:p_2/modelo/Post.dart';
-import 'package:p_2/modelo/Usuario.dart';
-import 'package:p_2/modelo/AdminFiltros.dart';
-import 'package:p_2/modelo/FiltroEtiquetas.dart';
-import 'package:p_2/modelo/FiltroCensura.dart';
+import '../lib/controlador/Gestor.dart';
+import '../lib/modelo/Post.dart';
+import '../lib/modelo/Usuario.dart';
+import '../lib/modelo/AdminFiltros.dart';
+import '../lib/modelo/FiltroEtiquetas.dart';
+import '../lib/modelo/FiltroCensura.dart';
 
 void main() {
   //Publicar post
@@ -17,7 +17,7 @@ void main() {
       Gestor().inicializar();
       Gestor().login('mistyroasted', '1234');
       Gestor().publicarPost(
-          'post de prueba aaaaaa #aaa', Gestor().getUsuarioActivo());
+          'post de prueba aaaaaa #aaa', autor: Gestor().getUsuarioActivo());
       Post p = Gestor()
           .getAllPublicaciones()
           .last;
@@ -32,7 +32,7 @@ void main() {
       gestor.inicializar();
       gestor.registrar("tWey", "12345");
       Usuario usu = gestor.buscarUsuario("mistyroasted");
-      gestor.seguir(usu);
+      gestor.toggleSeguir(usu);
 
       expect(gestor.getSeguidos().contains(usu), true);
       expect(gestor

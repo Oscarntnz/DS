@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.p_2">
+    package="com.example.p_4">
    <application
-        android:label="p_2"
+        android:label="Hello World!"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
         <activity

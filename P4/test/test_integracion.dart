@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter/material.dart';
-import 'package:p_2/main.dart' as app;
+import '../lib/main.dart' as app;
 
 //flutter drive --driver=test/driver_integracion.dart --target=test/test_integracion.dart
 

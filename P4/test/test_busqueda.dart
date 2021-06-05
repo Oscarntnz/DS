@@ -6,9 +6,8 @@
 // tree, read text, and verify that the values of widget properties are correct.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:p_2/controlador/Gestor.dart';
-import 'package:p_2/vista/Busqueda.dart';
-import 'package:p_2/vista/Home.dart';
+import '../lib/controlador/Gestor.dart';
+import '../lib/vista/Home.dart';
 
 void main() {
   testWidgets('Busqueda correcta', (WidgetTester tester) async {
