@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:p_2/modelo/Post.dart';
+import '../modelo/Post.dart';
 import 'Perfil.dart';
-import 'package:p_2/controlador/Gestor.dart';
+import '../controlador/Gestor.dart';
 
 class InterfazPost extends StatefulWidget {
   InterfazPost({@required this.post});
@@ -57,9 +57,10 @@ class _InterfazPost extends State<InterfazPost> {
         Align(
           child: IconButton(
             icon: Icon(_iconoLike),
-            onPressed: () => setState(() =>
-               _iconoLike = getIcono(Gestor().toggleLike(widget.post))
-            ),
+            onPressed: () async {
+              var icono = await Gestor().toggleLike(widget.post);
+              setState(() => _iconoLike = getIcono(icono));
+            }
           ),
           alignment: Alignment.bottomRight,
         )

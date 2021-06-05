@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p_2/controlador/Gestor.dart';
-import 'package:p_2/modelo/Post.dart';
+import '../controlador/Gestor.dart';
+import '../modelo/Post.dart';
 import 'InterfazPost.dart';
 
 class Busqueda extends SearchDelegate {

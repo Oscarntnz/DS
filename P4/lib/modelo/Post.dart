@@ -6,9 +6,35 @@ class Post {
     List<String> _etiquetas;
     DateTime _fecha;
     List<Usuario> _likes;
+    int _id;
+
+    Post(String texto, Usuario autor, {int id = -1}) {
+      this._texto = texto;
+      this._autor = autor;
+      this._etiquetas = [];
+      this._fecha = DateTime.now();
+      this._likes = [];
+      this._id = id;
+    }
+
+    void setAutor(Usuario u) {
+      this._autor = u;
+    }
+
+    void setLikes(List<Usuario> likes) {
+      this._likes = likes;
+    }
+
+    void setId(int id) {
+      this._id = id;
+    }
 
     String getTexto(){
       return _texto;
+    }
+
+    int getId() {
+      return _id;
     }
 
     void setTexto(String texto){
@@ -25,14 +51,6 @@ class Post {
 
     DateTime getFecha(){
       return _fecha;
-    }
-
-    Post(String texto, Usuario autor) {
-      this._texto = texto;
-      this._autor = autor;
-      this._etiquetas = [];
-      this._fecha = DateTime.now();
-      this._likes = [];
     }
 
     bool tieneEtiqueta(String etiqueta){
@@ -95,8 +113,23 @@ class Post {
   }
 
     bool operator ==(covariant Post otro){
-      return this._autor == otro._autor &&
-          this._fecha == otro._fecha &&
-          this._texto == otro._texto;
+      return this._id == otro._id;
     }
+
+    Post.fromJson(Map<String, dynamic> json) :
+      this._texto = json['texto'],
+      this._id = json['id'],
+      this._fecha = DateTime.parse(json['fecha']),
+      this._etiquetas = [],
+      this._likes = [];
+
+    Map<String, dynamic> toJson() => {
+      'texto': _texto,
+      'usuario_id': _autor.getId()
+    };
+
+    void addEtiqueta(String tag) {
+      _etiquetas.add(tag);
+    }
+
 }

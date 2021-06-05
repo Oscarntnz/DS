@@ -1,0 +1,226 @@
+@startuml
+set namespaceSeparator ::
+
+class "p_2::controlador::Gestor.dart::Gestor" {
+  +AdminFiltros* adminFiltros
+  +List<Usuario*>* usuarios
+  +List<Post*>* publicaciones
+  +Usuario* usuarioActivo
+  {static} -Gestor* _instance
+  +void inicializar()
+  +List<Usuario*>* getUsuarios()
+  +List<Post*>* getAllPublicaciones()
+  +List<Post*>* getPublicaciones()
+  +List<Post*>* getPublicacionesEtiqueta()
+  +List<Post*>* getPublicacionesUsuario()
+  +List<Post*>* buscar()
+  +Usuario* buscarUsuario()
+  +Usuario* existeUsuario()
+  +bool* login()
+  +void logout()
+  +Usuario* registrar()
+  +void setAdminFiltros()
+  +Post* publicarPost()
+  +Usuario* getUsuarioActivo()
+  +List<String*>* getBusquedasRecientes()
+  +void pushBusquedasRecientes()
+  +void seguir()
+  +List<Usuario*>* getSeguidores()
+}
+
+"p_2::controlador::Gestor.dart::Gestor" o-- "p_2::modelo::AdminFiltros.dart::AdminFiltros*"
+"p_2::controlador::Gestor.dart::Gestor" o-- "p_2::modelo::Usuario.dart::Usuario*"
+"p_2::controlador::Gestor.dart::Gestor" o-- "p_2::controlador::Gestor.dart::Gestor*"
+
+class "p_2::main.dart::MyApp" {
+  +Widget* build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "p_2::main.dart::MyApp"
+
+class "p_2::modelo::AdminFiltros.dart::AdminFiltros" {
+  +CadenaFiltros* cadenaFiltros
+  +void setFiltro()
+  +void setTarget()
+  +void ejecutar()
+}
+
+"p_2::modelo::AdminFiltros.dart::AdminFiltros" o-- "p_2::modelo::CadenaFiltros.dart::CadenaFiltros*"
+
+class "p_2::modelo::CadenaFiltros.dart::CadenaFiltros" {
+  +List<Filtro*>* filtros
+  +Post* target
+  +dynamic addFiltro()
+  +dynamic setTarget()
+  +dynamic ejecutar()
+}
+
+"p_2::modelo::CadenaFiltros.dart::CadenaFiltros" o-- "p_2::modelo::Post.dart::Post*"
+
+class "p_2::modelo::Constructor.dart::Constructor" {
+  {static} -Constructor* _instance
+  +void build()
+}
+
+"p_2::modelo::Constructor.dart::Constructor" o-- "p_2::modelo::Constructor.dart::Constructor*"
+
+abstract class "p_2::modelo::Filtro.dart::Filtro" {
+  +String* ejecutar()
+}
+
+class "p_2::modelo::FiltroCensura.dart::FiltroCensura" {
+  {static} +int* N_PAL_PROH
+  {static} +List<String*>* PALABRAS_PROHIBIDAS
+  +String* reemplazar()
+  +String* ejecutar()
+}
+
+"p_2::modelo::Filtro.dart::Filtro" <|-- "p_2::modelo::FiltroCensura.dart::FiltroCensura"
+
+class "p_2::modelo::FiltroEtiquetas.dart::FiltroEtiquetas" {
+  +String* ejecutar()
+}
+
+"p_2::modelo::Filtro.dart::Filtro" <|-- "p_2::modelo::FiltroEtiquetas.dart::FiltroEtiquetas"
+
+class "p_2::modelo::Post.dart::Post" {
+  +String* texto
+  +Usuario* autor
+  +List<String*>* etiquetas
+  +DateTime* fecha
+  +String* getTexto()
+  +void setTexto()
+  +List<String*>* getEtiquietas()
+  +Usuario* getAutor()
+  +DateTime* getFecha()
+  +bool* tieneEtiqueta()
+  +bool* tieneTexto()
+  +void setEtiquetas()
+}
+
+"p_2::modelo::Post.dart::Post" o-- "p_2::modelo::Usuario.dart::Usuario*"
+
+class "p_2::modelo::Usuario.dart::Usuario" {
+  +String* nombreUsuario
+  +String* password
+  +List<Usuario*>* seguidos
+  +List<Usuario*>* seguidores
+  +List<String*>* busquedasRecientes
+  +String* getNombre()
+  +String* getPassword()
+  +List<Usuario*>* getSeguidores()
+  +List<Usuario*>* getSeguidos()
+  +bool* isSeguido()
+  +bool* isSeguidor()
+  +void seguir()
+  +void addSeguidor()
+  +List<String*>* getBusquedasRecientes()
+  +void pushBusquedasRecientes()
+}
+
+class "p_2::vista::Busqueda.dart::Busqueda" {
+  +String* selectedResult
+  +List<Widget*>* buildActions()
+  +Widget* buildLeading()
+  +Widget* buildResults()
+  +Widget* buildSuggestions()
+  -Widget* _buildPost()
+}
+
+"flutter::src::material::search.dart::SearchDelegate" <|-- "p_2::vista::Busqueda.dart::Busqueda"
+
+class "p_2::vista::Home.dart::Home" {
+  +_Home* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "p_2::vista::Home.dart::Home"
+
+class "p_2::vista::Home.dart::_Home" {
+  -Color* _colorBarra
+  +ValueNotifier<ListView*>* listaPosts
+  +Widget* build()
+  +void publicarPost()
+}
+
+"p_2::vista::Home.dart::_Home" o-- "dart::ui::Color*"
+"p_2::vista::Home.dart::_Home" o-- "flutter::src::foundation::change_notifier.dart::ValueNotifier<ListView*>*"
+"flutter::src::widgets::framework.dart::State" <|-- "p_2::vista::Home.dart::_Home"
+
+class "p_2::vista::Home.dart::ListaPosts" {
+  +EstadoPosts* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "p_2::vista::Home.dart::ListaPosts"
+
+class "p_2::vista::Home.dart::EstadoPosts" {
+  +ListView* posts
+  +Widget* build()
+  +dynamic actualizarPosts()
+  -Widget* _getPosts()
+  -Widget* _buildPost()
+}
+
+"p_2::vista::Home.dart::EstadoPosts" o-- "flutter::src::widgets::scroll_view.dart::ListView*"
+"flutter::src::widgets::framework.dart::State" <|-- "p_2::vista::Home.dart::EstadoPosts"
+
+class "p_2::vista::Login.dart::Login" {
+  +_Login* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "p_2::vista::Login.dart::Login"
+
+class "p_2::vista::Login.dart::_Login" {
+  -List<Color*>* _coloresFondo
+  -TextStyle* _estiloTitulo
+  +Widget* build()
+  +Widget* buildLogin()
+  +bool* gestionarLogin()
+  +void alerta()
+}
+
+"p_2::vista::Login.dart::_Login" o-- "flutter::src::painting::text_style.dart::TextStyle*"
+"flutter::src::widgets::framework.dart::State" <|-- "p_2::vista::Login.dart::_Login"
+
+class "p_2::vista::Perfil.dart::Perfil" {
+  +Usuario* usuario
+  +_Perfil* createState()
+}
+
+"p_2::vista::Perfil.dart::Perfil" o-- "p_2::modelo::Usuario.dart::Usuario*"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "p_2::vista::Perfil.dart::Perfil"
+
+class "p_2::vista::Perfil.dart::_Perfil" {
+  +dynamic usuario
+  -Color* _colorBarra
+  +int* seguidores
+  +int* seguidos
+  +void actualizar()
+  +Widget* build()
+  +Widget* buildPerfil()
+  -Widget* _getPosts()
+  -Widget* _buildPost()
+}
+
+"p_2::vista::Perfil.dart::_Perfil" o-- "dart::ui::Color*"
+"flutter::src::widgets::framework.dart::State" <|-- "p_2::vista::Perfil.dart::_Perfil"
+
+class "p_2::vista::Registro.dart::Registro" {
+  +_Registro* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "p_2::vista::Registro.dart::Registro"
+
+class "p_2::vista::Registro.dart::_Registro" {
+  -List<Color*>* _coloresFondo
+  -TextStyle* _estiloTitulo
+  +Widget* build()
+  +Widget* buildRegistro()
+  +bool* registrar()
+  +void alerta()
+}
+
+"p_2::vista::Registro.dart::_Registro" o-- "flutter::src::painting::text_style.dart::TextStyle*"
+"flutter::src::widgets::framework.dart::State" <|-- "p_2::vista::Registro.dart::_Registro"
+
+
+@enduml

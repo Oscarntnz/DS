@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p_2/controlador/Gestor.dart';
+import '../controlador/Gestor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Login.dart';
 import 'Home.dart';
@@ -84,10 +84,14 @@ class _Registro extends State<Registro> {
               SizedBox(height: 300.0),
               Container(
                 child: ElevatedButton(
-                  onPressed: () {
-                    if(registrar(controlUsuario.text, controlPass.text))
+                  onPressed: () async {
+                    if(await registrar(controlUsuario.text, controlPass.text))
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Home()));
+                          MaterialPageRoute(builder: (context) => Home())).then((e){
+                            setState(() {
+
+                            });
+                      });
                   },
                   child: Text('Registrarse'),
                   style: ElevatedButton.styleFrom(
@@ -111,13 +115,11 @@ class _Registro extends State<Registro> {
     );
   }
 
-  bool registrar(String nombre, String pass) {
-    if (nombre.isEmpty || pass.isEmpty) {
+  Future<bool> registrar(String nombre, String pass) async {
+    if (nombre.isEmpty || pass.isEmpty)
       alerta('Faltan datos');
-    }
-    else if (Gestor().registrar(nombre, pass) == null){
-      alerta('El nombre de usuario y la contraseña debe de ser de al menos 3 caracteres');
-    }
+    else if ((await Gestor().registrar(nombre, pass)) == null)
+      alerta('El nombre de usuario y la contraseña debe de ser de al menos 3 caracteres. Puede que el nombre ya este en uso');
     else
       return true;
 

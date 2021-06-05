@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'Registro.dart';
-import 'package:p_2/controlador/Gestor.dart';
+import '../controlador/Gestor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Home.dart';
 
@@ -87,7 +87,11 @@ class _Login extends State<Login> {
                   onPressed: () {
                     if(gestionarLogin(controlUsuario.text, controlPass.text))
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Home()));
+                          MaterialPageRoute(builder: (context) => Home())).then((e){
+                        setState(() {
+
+                        });
+                      });
                   },
                   child: Text('Iniciar sesión'),
                   style: ElevatedButton.styleFrom(

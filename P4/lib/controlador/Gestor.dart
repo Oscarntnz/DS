@@ -1,7 +1,8 @@
-import 'package:p_2/modelo/AdminFiltros.dart';
-import 'package:p_2/modelo/Usuario.dart';
-import 'package:p_2/modelo/Post.dart';
-import 'package:p_2/modelo/Constructor.dart';
+import '../modelo/AdminFiltros.dart';
+import '../modelo/Usuario.dart';
+import '../modelo/Post.dart';
+import 'Constructor.dart';
+import 'BD.dart';
 
 class Gestor {
     AdminFiltros _adminFiltros;
@@ -25,8 +26,50 @@ class Gestor {
       Constructor().build();
     }
 
+    void recargarPost() async {
+      _publicaciones = [];
+
+      await BD().getAllPosts();
+    }
+
+    void recargarUsuarios() async  {
+      _usuarios = [];
+
+      await BD().getAllUsuarios();
+    }
+
     List<Usuario> getUsuarios(){
         return _usuarios;
+    }
+
+    Usuario getUsuarioById(int id) {
+      var it = _usuarios.iterator;
+
+      while(it.moveNext())
+        if(it.current.getId() == id)
+          return it.current;
+
+      return null;
+    }
+
+    getUsuario(String username) {
+      var it = _usuarios.iterator;
+
+      while(it.moveNext())
+        if(it.current.getNombre() == username)
+          return it.current;
+
+      return null;
+    }
+
+    Post getPostById(int id) {
+      var it = _publicaciones.iterator;
+
+      while(it.moveNext())
+        if(it.current.getId() == id)
+          return it.current;
+
+      return null;
     }
 
     List<Post> getAllPublicaciones(){
@@ -123,30 +166,60 @@ class Gestor {
       _usuarioActivo = null;
     }
 
-    Usuario registrar(String nombreUsuario, String password){
-        if(nombreUsuario.isNotEmpty && nombreUsuario.length > 3 && password.isNotEmpty && password.length > 3){
-          _usuarios.add(new Usuario(nombreUsuario, password));
-          _usuarioActivo = _usuarios.last;
+    Future<Usuario> registrar(String nombreUsuario, String password) async {
+        if(nombreUsuario.isNotEmpty && nombreUsuario.length > 3
+            && password.isNotEmpty && password.length > 3
+            && getUsuario(nombreUsuario) == null) {
+          Usuario u = new Usuario(nombreUsuario, password);
+
+          if(await BD().subirUsuario(u)){
+            _usuarioActivo = _usuarios.last;
 
             return _usuarioActivo;
+          }
+          else
+            return null;
         }
         else
             return null;
+    }
+
+    bool addUsuario(Usuario u) {
+      if(u != null) {
+        _usuarios.add(u);
+
+        return true;
+      }
+      else
+        return false;
     }
 
     void setAdminFiltros(AdminFiltros adminFiltros){
         this._adminFiltros = adminFiltros;
     }
 
-    Post publicarPost(String texto, Usuario autor){
+    Future<Post> publicarPost(String texto, {Usuario autor}) async {
+      if(autor == null)
+        autor = _usuarioActivo;
+
         Post resultado = new Post(texto, autor);
 
         _adminFiltros.setTarget(resultado);
         _adminFiltros.ejecutar();
 
-        _publicaciones.add(resultado);
+        if(await BD().subirPost(resultado)) {
+          _publicaciones.add(resultado);
 
-        return _publicaciones.last;
+          return _publicaciones.last;
+        }
+        else
+          return null;
+  }
+
+    Post addPost(Post p) {
+      _publicaciones.add(p);
+
+      return _publicaciones.last;
     }
 
     Usuario getUsuarioActivo(){
@@ -161,19 +234,52 @@ class Gestor {
       _usuarioActivo.pushBusquedasRecientes(query);
     }
 
-    bool toggleSeguir(Usuario usuario){
-      if(!_usuarioActivo.sigueA(usuario)) {
-        _usuarioActivo.seguir(usuario);
-        usuario.addSeguidor(_usuarioActivo);
+    bool cargarSeguir(Usuario usuario, {Usuario quien}) {
+      if(quien == null)
+        quien = _usuarioActivo;
+
+      if(!quien.sigueA(usuario)) {
+        quien.seguir(usuario);
+        usuario.addSeguidor(quien);
 
         return true;
       }
       else{
-        _usuarioActivo.dejarDeSeguir(usuario);
-        usuario.removeSeguidor(_usuarioActivo);
+        quien.dejarDeSeguir(usuario);
+        usuario.removeSeguidor(quien);
 
         return false;
       }
+    }
+
+    Future<bool> toggleSeguir(Usuario usuario, {Usuario quien}) async {
+      if(quien == null)
+        quien = _usuarioActivo;
+
+      if(usuario != quien) {
+        if (!quien.sigueA(usuario)) {
+          if (await BD().subirSeguido(quien, usuario)) {
+            quien.seguir(usuario);
+            usuario.addSeguidor(quien);
+
+            return true;
+          }
+          else
+            return false;
+        }
+        else {
+          if (await BD().quitarSeguido(quien, usuario)) {
+            quien.dejarDeSeguir(usuario);
+            usuario.removeSeguidor(quien);
+
+            return false;
+          }
+          else
+            return false;
+        }
+      }
+
+      return false;
   }
 
     List<Usuario> getSeguidores(){
@@ -184,8 +290,27 @@ class Gestor {
       return _usuarioActivo.getSeguidos();
     }
 
-    bool toggleLike(Post post) {
-      return post.toggleLike(_usuarioActivo);
+    Future<bool> toggleLike(Post post, {Usuario quien}) async {
+      if(quien == null)
+        quien = _usuarioActivo;
+
+      if(post.haDadoLike(quien) != -1) {
+        if(await BD().quitarLike(post, quien))
+          return post.toggleLike(quien);
+      }
+      else {
+        if(await BD().darLike(post, quien))
+          return post.toggleLike(quien);
+      }
+
+      return false;
+    }
+
+    bool cambiarLike(Post post, {Usuario quien}) {
+      if(quien == null)
+        quien = _usuarioActivo;
+
+        return post.toggleLike(quien);
     }
 
     int getLikes(Post post) {

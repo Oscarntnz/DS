@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:p_2/controlador/Gestor.dart';
-import 'package:p_2/modelo/Post.dart';
+import '../controlador/Gestor.dart';
 import 'Busqueda.dart';
-import 'Perfil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'InterfazPost.dart';
 
 class Home extends StatefulWidget {
@@ -66,12 +63,13 @@ class _Home extends State<Home> {
               controller: controlPost,
             ),
             actions: [
-              TextButton(onPressed: () {
-                Gestor().publicarPost(
-                    controlPost.text, Gestor().getUsuarioActivo());
+              TextButton(onPressed: () async {
+                await Gestor().publicarPost(controlPost.text);
 
                 listaPosts.notifyListeners();
                 Navigator.of(context).pop();
+
+                await Gestor().recargarPost();
                 setState(() {});
               },
 

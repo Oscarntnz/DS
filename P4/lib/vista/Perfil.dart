@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p_2/controlador/Gestor.dart';
-import 'package:p_2/vista/InterfazPost.dart';
+import '../controlador/Gestor.dart';
+import '../vista/InterfazPost.dart';
 import 'Busqueda.dart';
-import 'package:p_2/modelo/Usuario.dart';
+import '../modelo/Usuario.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Perfil extends StatefulWidget {
@@ -39,7 +39,7 @@ class _Perfil extends State<Perfil> {
 
   @override
   Widget build(BuildContext context) {
-    actualizar(Gestor().sigueA(usuario));
+    actualizar(Gestor().sigueA(this.usuario));
     return Scaffold(
       appBar: AppBar(
         title: Text(Gestor().getUsuarioActivo().getNombre(),
@@ -75,7 +75,7 @@ class _Perfil extends State<Perfil> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
         ),
         SizedBox(height: 20.0),
-        ElevatedButton(onPressed: () => actualizar(Gestor().toggleSeguir(usuario)),
+        ElevatedButton(onPressed: () async => actualizar(await Gestor().toggleSeguir(this.usuario)),
           child: Text(_seguirDejarDe),
         ),
         SizedBox(height: 20.0),
@@ -87,7 +87,7 @@ class _Perfil extends State<Perfil> {
 
 
   Widget _getPosts() {
-    final _suggestions = Gestor().getPublicacionesUsuario(usuario);
+    final _suggestions = Gestor().getPublicacionesUsuario(this.usuario);
     return ListView.builder(
         padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
         itemCount: _suggestions.length*2,

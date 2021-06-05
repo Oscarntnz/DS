@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p_2/vista/Login.dart';
+import './vista/Login.dart';
 import 'controlador/Gestor.dart';
 
 void main() {

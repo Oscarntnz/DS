@@ -1,9 +1,9 @@
-import '../controlador/Gestor.dart';
-import 'package:p_2/modelo/FiltroEtiquetas.dart';
-import 'package:p_2/modelo/FiltroCensura.dart';
-import 'package:p_2/modelo/AdminFiltros.dart';
-import 'package:p_2/modelo/Post.dart';
-import 'package:p_2/modelo/Usuario.dart';
+/*import '../controlador/Gestor.dart';
+import '../modelo/FiltroEtiquetas.dart';
+import '../modelo/FiltroCensura.dart';
+import '../modelo/AdminFiltros.dart';
+import '../modelo/Post.dart';
+import '../modelo/Usuario.dart';
 import 'dart:io';
 
 void imprimirPublicaciones(List<Post> publicaciones){
@@ -101,4 +101,4 @@ int main(){
   }
 
   return 0;
-}
+}*/

@@ -4,8 +4,22 @@ class Usuario {
   List<Usuario> _seguidos;
   List<Usuario> _seguidores;
   List<String> _busquedasRecientes;
+  int _id;
 
-  String getNombre(){
+  Usuario(String nombreUsuario, String password, {int id = -1}){
+    this._nombreUsuario = nombreUsuario;
+    this._password = password;
+    this._seguidos = [];
+    this._seguidores = [];
+    this._busquedasRecientes = [];
+    this._id = id;
+  }
+
+  int getId() {
+    return _id;
+  }
+
+  String getNombre() {
     return _nombreUsuario;
   }
 
@@ -19,6 +33,10 @@ class Usuario {
 
   List<Usuario> getSeguidos(){
     return _seguidos;
+  }
+
+  void setId(int id) {
+    this._id = id;
   }
 
   bool isSeguido(Usuario usu){
@@ -47,14 +65,6 @@ class Usuario {
       _seguidores.add(u);
   }
 
-  Usuario(String nombreUsuario, String password){
-    this._nombreUsuario = nombreUsuario;
-    this._password = password;
-    _seguidos = [];
-    _seguidores = [];
-    _busquedasRecientes = [];
-  }
-
   List<String> getBusquedasRecientes(){
     return _busquedasRecientes;
   }
@@ -64,7 +74,7 @@ class Usuario {
   }
 
   bool operator ==(covariant Usuario otro){
-    return this._nombreUsuario == otro._nombreUsuario;
+    return this._id == otro._id;
   }
 
   bool sigueA(Usuario u) {
@@ -78,4 +88,18 @@ class Usuario {
   void removeSeguidor(Usuario u) {
     _seguidores.remove(u);
   }
+
+  Usuario.fromJson(Map<String, dynamic> json) :
+    this._nombreUsuario = json['nombre'],
+    this._password = json['contraseña'],
+    this._seguidos = [],
+    this._seguidores = [],
+    this._busquedasRecientes = [],
+    this._id = json['id'];
+
+  Map<String, dynamic> toJson() => {
+    'nombre': _nombreUsuario,
+    "contraseña": _password
+  };
+
 }
